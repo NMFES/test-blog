@@ -15,6 +15,8 @@
 Route::get('/', function () {
     
     
+    
+    
     exit();
     
     return view('welcome');
