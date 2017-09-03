@@ -8,8 +8,5 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-
-.testClass {
-    color: $brand-success;
-    padding: 10px;
-}
+// Font-awesome
+@import "node_modules/font-awesome/scss/font-awesome";

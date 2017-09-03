@@ -8,7 +8,7 @@
 require('./bootstrap');
 
 
-window.Vue = require('vue');
+//window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,8 +16,40 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+//Vue.component('example', require('./components/Example.vue'));
+//
+//const app = new Vue({
+//    el: '#app'
+//});
+
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import App from './App.vue';
+
+// routes
+import PostIndex from './post/index.vue';
+import PostShow from './post/show.vue';
+import ContactIndex from './contact/index.vue';
+import ContactForm from './contact/form.vue';
+import FeedbackIndex from './feedback/index.vue';
+import FeedbackForm from './feedback/form.vue';
+
+Vue.use(VueRouter);
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    template: '<app></app>',
+    components: {App},
+    router: new VueRouter({
+        mode: 'history',
+        routes: [
+            {path: '/', component: PostIndex},
+            {path: '/contacts', component: ContactIndex},
+            {path: '/feedbacks', component: FeedbackIndex},
+            {path: '/register'},
+            {path: '/login'},
+            {path: '/not-found'},
+            {path: '*'}
+        ]
+    })
 });
