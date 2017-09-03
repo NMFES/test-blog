@@ -1,6 +1,5 @@
 <?php
 
-
 /*
   |--------------------------------------------------------------------------
   | Web Routes
@@ -13,11 +12,14 @@
  */
 
 Route::get('/', function () {
-    
-    
-    
-    
-    exit();
-    
+
+
+
+
     return view('welcome');
 });
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
