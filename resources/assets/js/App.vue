@@ -39,7 +39,9 @@
         </nav>
         <div class="row">
             <div class="col-xs-12">
-                <router-view></router-view>
+                <transition name="fade" mode="out-in">
+                    <router-view></router-view>
+                </transition>
             </div>
         </div>
     </div>
@@ -65,5 +67,12 @@
 <style scoped>
     .container {
         padding-top: 20px;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .25s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+        opacity: 0
     }
 </style>

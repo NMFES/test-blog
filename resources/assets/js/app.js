@@ -24,6 +24,7 @@ require('./bootstrap');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
 import App from './App.vue';
 
 // routes
@@ -36,6 +37,7 @@ import FeedbackForm from './feedback/form.vue';
 
 Vue.use(VueRouter);
 
+
 const app = new Vue({
     el: '#app',
     template: '<app></app>',
@@ -46,10 +48,11 @@ const app = new Vue({
             {path: '/', component: PostIndex},
             {path: '/contacts', component: ContactIndex},
             {path: '/feedbacks', component: FeedbackIndex},
-            {path: '/register'},
-            {path: '/login'},
-            {path: '/not-found'},
-            {path: '*'}
+            {path: '/:slug([a-z0-9\-]+)?', component: PostShow},
+//            {path: '/register'},
+//            {path: '/login'},
+//            {path: '/not-found'},
+//            {path: '*'}
         ]
     })
 });

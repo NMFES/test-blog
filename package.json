@@ -20,6 +20,8 @@
         "vue-router": "*"
     },
     "dependencies": {
-        "font-awesome": "^4.7.0"
+        "font-awesome": "^4.7.0",
+        "vue-axios": "^2.0.2",
+        "vuejs-paginator": "^2.0.2"
     }
 }
