@@ -17,6 +17,12 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::resource('post', 'PostController');
+//Route::resource('post', 'PostController');
+
+Route::get('post', 'PostController@index');
+Route::get('post/{slug}', 'PostController@show');
 
 Route::post('contact/message', 'ContactController@message');
+
+Route::get('comment', 'CommentController@index');
+Route::post('comment', 'CommentController@store');

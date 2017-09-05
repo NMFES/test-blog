@@ -29,7 +29,7 @@ class EditingPostsTable extends Migration {
      */
     public function down() {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn(['description', 'text', 'meta_description', 'meta_keywords', 'status']);
+            $table->dropColumn(['description', 'content', 'meta_description', 'meta_keywords', 'status']);
         });
     }
 

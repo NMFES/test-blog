@@ -32,8 +32,8 @@ import PostIndex from './post/index.vue';
 import PostShow from './post/show.vue';
 import ContactIndex from './contact/index.vue';
 import ContactForm from './contact/form.vue';
-import FeedbackIndex from './feedback/index.vue';
-import FeedbackForm from './feedback/form.vue';
+import CommentIndex from './comment/index.vue';
+import CommentForm from './comment/form.vue';
 
 Vue.use(VueRouter);
 
@@ -47,7 +47,7 @@ const app = new Vue({
         routes: [
             {path: '/', component: PostIndex},
             {path: '/contacts', component: ContactIndex},
-            {path: '/feedbacks', component: FeedbackIndex},
+            {path: '/comments', component: CommentIndex},
             {path: '/:slug([a-z0-9\-]+)?', component: PostShow},
 //            {path: '/register'},
 //            {path: '/login'},

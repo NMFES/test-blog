@@ -1,6 +1,6 @@
 <template>
     <div>
-        feedbacks
+        comments
     </div>
 </template>
 <script type="text/javascript">
