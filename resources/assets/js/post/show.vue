@@ -17,6 +17,7 @@
 <script type="text/javascript">
     import axios from 'axios';
     import PageHeader from '../helpers/page-header.vue';
+    import EventBus from '../helpers/event-bus.vue';
 
     export default {
         data() {
@@ -41,7 +42,7 @@
                         this.meta_keywords = response.data.meta_keywords;
                     })
                     .catch(e => {
-                        this.errors.push(e)
+                        EventBus.$emit('error', 'Возникла ошибка :(');
                     })
         },
         computed: {

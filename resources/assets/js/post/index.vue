@@ -10,7 +10,7 @@
                     <router-link :to="'/' + post.slug"><h3>{{ post.title }}</h3></router-link>
                     {{ post.description }}
                     <div class="date">
-                        {{ post.date }}
+                        {{ post.created_at }}
                     </div>
                 </div>
                 <div class="clearfix"></div>

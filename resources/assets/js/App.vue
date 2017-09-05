@@ -37,6 +37,7 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <flash-message></flash-message>
         <div class="row">
             <div class="col-xs-12">
                 <transition name="fade" mode="out-in">
@@ -47,21 +48,28 @@
     </div>
 </template>
 <script type="text/javascript">
+    import FlashMessage from './helpers/flash-message.vue';
+
     export default {
         data() {
-            return {
-
-            };
+            return {};
         },
         created() {
 
+        },
+        mounted() {
+            
         },
         computed: {
 
         },
         methods: {
 
-        }
+        },
+        components: {
+            FlashMessage
+        },
+
     }
 </script>
 <style scoped>

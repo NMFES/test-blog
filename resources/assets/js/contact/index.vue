@@ -32,9 +32,7 @@
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin turpis ligula, volutpat ac sem quis, efficitur varius lacus. Duis ac sollicitudin eros. Proin at interdum eros, quis vulputate nulla. Aliquam convallis sodales scelerisque. Maecenas viverra libero laoreet odio facilisis molestie. Nullam nibh velit, facilisis posuere congue gravida, fringilla sit amet elit. Vestibulum metus erat, bibendum nec consequat dignissim, laoreet id sapien. Nunc id purus eu nunc dignissim bibendum ac a lacus. Proin pulvinar pretium augue, quis rutrum erat fermentum non. Sed quis est sit amet lectus porttitor imperdiet vel et magna. Mauris sed nulla volutpat elit lobortis mollis consectetur a massa. Aliquam laoreet orci et cursus vehicula. In hac habitasse platea dictumst. Mauris a sapien ligula. Vestibulum et magna sed sapien fermentum placerat.
                     </p>
-                    <p>
-                        Quisque eu tempus purus, a lobortis diam. Nulla sit amet nisl mollis, sagittis ex ac, finibus sem. Vestibulum cursus eleifend faucibus. Maecenas et odio nec mauris rutrum maximus. Ut eu consectetur urna. Proin sollicitudin, libero sed sodales lobortis, tortor quam molestie quam, non sodales neque nisi vel magna. Nunc consequat porttitor facilisis. Curabitur ante dui, tempus vitae diam eu, volutpat euismod massa. Donec non elit sit amet dolor placerat venenatis. Maecenas eu aliquet mauris. Integer suscipit libero vitae euismod tincidunt. Sed molestie, mi sit amet eleifend iaculis, urna erat pellentesque sem, nec facilisis justo nisl et augue. Aliquam erat volutpat.
-                    </p>
+                    <contact-form></contact-form>
                 </div>
             </div>
         </div>
@@ -42,6 +40,7 @@
 </template>
 <script type="text/javascript">
     import PageHeader from '../helpers/page-header.vue';
+    import ContactForm from './form.vue';
 
     export default {
         data() {
@@ -50,7 +49,8 @@
             };
         },
         components: {
-            PageHeader
+            PageHeader,
+            ContactForm
         },
         created() {
 

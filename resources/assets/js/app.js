@@ -56,3 +56,5 @@ const app = new Vue({
         ]
     })
 });
+
+

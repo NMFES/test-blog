@@ -18,3 +18,5 @@ use Illuminate\Http\Request;
 //});
 
 Route::resource('post', 'PostController');
+
+Route::post('contact/message', 'ContactController@message');
