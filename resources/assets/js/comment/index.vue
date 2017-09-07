@@ -12,7 +12,9 @@
     </div>
 </template>
 <script type="text/javascript">
+    import Vue from 'vue';
     import axios from 'axios';
+    import EventBus from '../helpers/event-bus.vue';
     import PageHeader from '../helpers/page-header.vue';
     import CommentForm from './form.vue';
     import CommentItem from './item.vue';
@@ -29,19 +31,22 @@
             CommentItem
         },
         created() {
-            axios.get('/api/comment')
-                    .then(response => {
-                        this.comments = response.data;
-                    })
-                    .catch(e => {
-                        EventBus.$emit('error', 'Возникла ошибка :(');
-                    })
-        },
-        computed: {
-
+            this.load();
+            
+            EventBus.$on('reloadComments', () => {
+                this.load();
+            });
         },
         methods: {
-
+            load() {
+                axios.get('/api/comment')
+                        .then(response => {
+                            Vue.set(this.$data, 'comments', response.data);
+                        })
+                        .catch(e => {
+                            EventBus.$emit('error', 'Возникла ошибка :(');
+                        })
+            }
         }
     }
 </script>

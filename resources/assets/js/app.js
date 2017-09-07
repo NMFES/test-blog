@@ -34,6 +34,9 @@ import ContactIndex from './contact/index.vue';
 import ContactForm from './contact/form.vue';
 import CommentIndex from './comment/index.vue';
 import CommentForm from './comment/form.vue';
+import AuthRegister from './auth/register.vue';
+import AuthLogin from './auth/login.vue';
+import NotFound from './helpers/not-found.vue';
 
 Vue.use(VueRouter);
 
@@ -48,11 +51,11 @@ const app = new Vue({
             {path: '/', component: PostIndex},
             {path: '/contacts', component: ContactIndex},
             {path: '/comments', component: CommentIndex},
+            {path: '/register', component: AuthRegister},
+            {path: '/login', component: AuthLogin},
+            {path: '/not-found', component: NotFound},
             {path: '/:slug([a-z0-9\-]+)?', component: PostShow},
-//            {path: '/register'},
-//            {path: '/login'},
-//            {path: '/not-found'},
-//            {path: '*'}
+            {path: '*', component: NotFound}
         ]
     })
 });

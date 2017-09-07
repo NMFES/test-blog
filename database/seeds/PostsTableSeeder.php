@@ -30,8 +30,6 @@ class PostsTableSeeder extends Seeder {
                         'slug' => $faker->slug(5),
                         'description' => $faker->sentence(100),
                         'content' => $faker->sentence(500),
-                        'meta_description' => $faker->sentence(20),
-                        'meta_keywords' => implode(', ', explode(' ', $faker->sentence(20))),
                         'status' => mt_rand(0, 1)
             ]);
 

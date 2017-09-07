@@ -51,15 +51,6 @@
         components: {
             PageHeader,
             ContactForm
-        },
-        created() {
-
-        },
-        computed: {
-
-        },
-        methods: {
-
         }
     }
 </script>

@@ -9,10 +9,10 @@ use Carbon\Carbon;
 
 class PostController extends Controller {
 
-    public function __construct() {
-//        $this->middleware('auth:api');
-    }
-
+    /**
+     * Index page
+     * @return json
+     */
     public function index() {
         $posts = Post::where('status', Post::STATUS_PUBLISHED)
                 ->select('id', 'title', 'description', 'slug', 'created_at')
@@ -32,14 +32,19 @@ class PostController extends Controller {
         return response()->json($posts);
     }
 
+    /**
+     * Show post page
+     * @param string $slug
+     * @return json
+     */
     public function show($slug) {
         $post = Post::where(['slug' => $slug, 'status' => Post::STATUS_PUBLISHED])
-                ->select('id', 'title', 'content', 'created_at', 'meta_description', 'meta_keywords')
+                ->select('id', 'title', 'content', 'created_at')
                 ->firstOrFail()
                 ->toArray();
 
         $post['created_at'] = Carbon::createFromTimestamp($post['created_at'])->format('Y-m-d, H:i');
-        
+
 
         if (Storage::disk('public')->exists('images/posts/' . $post['id'] . '.jpg')) {
             $post['img'] = Storage::disk('public')->url('images/posts/' . $post['id'] . '.jpg');

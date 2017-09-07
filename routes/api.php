@@ -13,16 +13,18 @@ use Illuminate\Http\Request;
   |
  */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-//Route::resource('post', 'PostController');
-
+// Posts
 Route::get('post', 'PostController@index');
 Route::get('post/{slug}', 'PostController@show');
 
+// Contact
 Route::post('contact/message', 'ContactController@message');
 
+// Comments
 Route::get('comment', 'CommentController@index');
 Route::post('comment', 'CommentController@store');
+
+// Auth
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+Route::post('register', 'AuthController@register');

@@ -33,15 +33,6 @@
                 errors: {}
             };
         },
-        created() {
-
-        },
-        mounted() {
-            
-        },
-        computed: {
-
-        },
         methods: {
             send() {
                 this.sending = true;
@@ -61,16 +52,13 @@
                             this.sending = false;
                         })
                         .catch(e => {
-                            if (e.response.status == 422) {
+                            if (e.response.status === 422) {
                                 this.errors = e.response.data.errors;
                             }
-                            
+
                             this.sending = false;
                         });
             }
-        },
-        watch: {
-
         }
     }
 </script>

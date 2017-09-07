@@ -27,8 +27,7 @@ class CommentsTableSeeder extends Seeder {
 
             $comment = Comment::create([
                         'name' => $faker->name(),
-                        'email' => $faker->email(),
-                        'message' => $faker->sentence(mt_rand(5, 30)),
+                        'message' => $faker->sentence(mt_rand(10, 50)),
                         'parent_id' => $parentID
             ]);
 

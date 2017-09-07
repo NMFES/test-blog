@@ -25,9 +25,7 @@
                 title: '',
                 img: '',
                 content: '',
-                date: '',
-                meta_description: '',
-                meta_keywords: ''
+                date: ''
             };
         },
         components: {PageHeader},
@@ -38,18 +36,10 @@
                         this.img = response.data.img;
                         this.content = response.data.content;
                         this.date = response.data.created_at;
-                        this.meta_description = response.data.meta_description;
-                        this.meta_keywords = response.data.meta_keywords;
                     })
                     .catch(e => {
                         EventBus.$emit('error', 'Возникла ошибка :(');
                     })
-        },
-        computed: {
-
-        },
-        methods: {
-
         }
     }
 </script>

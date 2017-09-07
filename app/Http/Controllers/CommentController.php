@@ -8,6 +8,10 @@ use Carbon\Carbon;
 
 class CommentController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth:api')->only('store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +46,21 @@ class CommentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $request->validate([
+            'message' => 'required|string|min:10|max:5000',
+            'parent_id' => 'required|integer' . ((bool) $request->parent_id ? '|exists:comments,id' : '')
+        ]);
+
+        $comment = new Comment();
+        $comment->name = 'asd';
+        $comment->message = $request->message;
+        $comment->parent_id = $request->parent_id;
+
+        $comment->save();
+
+        return response()->json([
+                    'success' => true,
+        ]);
     }
 
     /**

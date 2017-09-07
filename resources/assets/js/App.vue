@@ -21,13 +21,17 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-user-circle" v-if="!auth.authenticated()"></span>
+                                <span v-if="auth.authenticated()">{{ auth.state.name }}</span>
+                                <span class="caret"></span>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
+                                <li v-if="!auth.authenticated()"><router-link to="/login">Вход</router-link></li>
+                        <li v-if="!auth.authenticated()"><router-link to="/register">Регистрация</router-link></li>
+                        <li v-if="auth.authenticated()"><a href="#" @click.stop="logout">Выход</a></li>
+                    </ul>
+                    </li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
@@ -48,28 +52,68 @@
     </div>
 </template>
 <script type="text/javascript">
+    import Auth from './helpers/auth';
+    import axios from 'axios';
     import FlashMessage from './helpers/flash-message.vue';
+    import EventBus from './helpers/event-bus.vue';
 
     export default {
         data() {
-            return {};
+            return {
+                auth: Auth
+            };
         },
         created() {
+            axios.interceptors.response.use(
+                    (response) => {
+                return response;
+            },
+                    (error) => {
+                if (error.response.status === 401) {
+                    Auth.remove();
 
-        },
-        mounted() {
-            
-        },
-        computed: {
+                    this.$router.push('/login');
+                }
 
+                if (error.response.status === 500) {
+                    EventBus.$emit('error', error.response.statusText);
+                }
+
+                if (error.response.status === 404) {
+                    this.$router.push('/not-found');
+                }
+
+                return Promise.reject(error);
+            });
+
+            // try to log in
+            Auth.init();
         },
         methods: {
+            logout() {
+                axios({
+                    url: '/api/logout',
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${Auth.state.api_token}`
+                    }
+                }).then(response => {
+                    if (response.data.success) {
+                        Auth.remove();
 
+                        EventBus.$emit('success', 'Вы вышли из аккаунта.');
+
+                        this.$router.push('/login');
+                    }
+
+                    // removing "open" class, close up a menu
+                    $('li.dropdown').removeClass('open');
+                });
+            }
         },
         components: {
             FlashMessage
-        },
-
+        }
     }
 </script>
 <style scoped>
