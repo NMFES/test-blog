@@ -33,10 +33,11 @@
                     </ul>
                     </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
+                    <form class="navbar-form navbar-right" @submit.prevent="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Поиск">
+                            <input type="text" class="form-control" placeholder="Поиск" v-model="query">
                         </div>
+                        <button class="btn btn-primary btn-sm"><span class="fa fa-search"></span></button>
                     </form>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -60,7 +61,8 @@
     export default {
         data() {
             return {
-                auth: Auth
+                auth: Auth,
+                query: ''
             };
         },
         created() {
@@ -109,6 +111,15 @@
                     // removing "open" class, close up a menu
                     $('li.dropdown').removeClass('open');
                 });
+            },
+            search() {
+                if (!this.query) {
+                    return;
+                }
+                
+                this.$router.push({path: '/search/' + encodeURIComponent(this.query)});
+                
+                EventBus.$emit('search');
             }
         },
         components: {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller {
 
@@ -50,9 +51,9 @@ class CommentController extends Controller {
             'message' => 'required|string|min:10|max:5000',
             'parent_id' => 'required|integer' . ((bool) $request->parent_id ? '|exists:comments,id' : '')
         ]);
-
+        
         $comment = new Comment();
-        $comment->name = 'asd';
+        $comment->name = Auth::user()->name;
         $comment->message = $request->message;
         $comment->parent_id = $request->parent_id;
 

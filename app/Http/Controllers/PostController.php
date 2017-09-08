@@ -13,9 +13,13 @@ class PostController extends Controller {
      * Index page
      * @return json
      */
-    public function index() {
+    public function index(Request $request) {
+        $query = $request->header('Query');
+
         $posts = Post::where('status', Post::STATUS_PUBLISHED)
+                ->where('title', 'like', '%' . $query . '%')
                 ->select('id', 'title', 'description', 'slug', 'created_at')
+                ->addBinding($query)
                 ->paginate(10)
                 ->toArray();
 

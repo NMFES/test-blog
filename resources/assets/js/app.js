@@ -16,12 +16,6 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//Vue.component('example', require('./components/Example.vue'));
-//
-//const app = new Vue({
-//    el: '#app'
-//});
-
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -49,12 +43,13 @@ const app = new Vue({
         mode: 'history',
         routes: [
             {path: '/', component: PostIndex},
+            {path: '/post/:slug([a-z0-9\-]+)', component: PostShow},
+            {path: '/search/:query(.+)', component: PostIndex},
             {path: '/contacts', component: ContactIndex},
             {path: '/comments', component: CommentIndex},
             {path: '/register', component: AuthRegister},
             {path: '/login', component: AuthLogin},
             {path: '/not-found', component: NotFound},
-            {path: '/:slug([a-z0-9\-]+)?', component: PostShow},
             {path: '*', component: NotFound}
         ]
     })

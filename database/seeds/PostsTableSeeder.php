@@ -24,7 +24,7 @@ class PostsTableSeeder extends Seeder {
         // getting template images
         $files = collect(File::glob(storage_path('app/public') . '/images/templates/posts/*.jpg'));
 
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 155; $i++) {
             $post = Post::create([
                         'title' => $faker->sentence(6),
                         'slug' => $faker->slug(5),

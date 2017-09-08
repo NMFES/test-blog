@@ -1680,6 +1680,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -1689,7 +1690,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            auth: __WEBPACK_IMPORTED_MODULE_0__helpers_auth__["a" /* default */]
+            auth: __WEBPACK_IMPORTED_MODULE_0__helpers_auth__["a" /* default */],
+            query: ''
         };
     },
     created: function created() {
@@ -1741,6 +1743,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 // removing "open" class, close up a menu
                 $('li.dropdown').removeClass('open');
             });
+        },
+        search: function search() {
+            if (!this.query) {
+                return;
+            }
+
+            this.$router.push({ path: '/search/' + encodeURIComponent(this.query) });
+
+            __WEBPACK_IMPORTED_MODULE_3__helpers_event_bus_vue___default.a.$emit('search');
         }
     },
     components: {
@@ -2415,8 +2426,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuejs_paginator__ = __webpack_require__("./node_modules/vuejs-paginator/dist/vuejs-paginator.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuejs_paginator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vuejs_paginator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_page_header_vue__ = __webpack_require__("./resources/assets/js/helpers/page-header.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_page_header_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__helpers_page_header_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_event_bus_vue__ = __webpack_require__("./resources/assets/js/helpers/event-bus.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_event_bus_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__helpers_event_bus_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_page_header_vue__ = __webpack_require__("./resources/assets/js/helpers/page-header.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_page_header_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__helpers_page_header_vue__);
 //
 //
 //
@@ -2440,6 +2453,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -2461,16 +2475,48 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_
                 remote_next_page_url: 'next_page_url',
                 remote_prev_page_url: 'prev_page_url',
                 next_button_text: 'Предыдущая',
-                previous_button_text: 'Следующая'
+                previous_button_text: 'Следующая',
+                headers: {
+                    // vue-paginator does'n allow transfering custom data
+                    // in request_url. So, that's why we use headers
+                    'Query': this.getQuery()
+                }
             }
         };
     },
 
-    components: { VPaginator: __WEBPACK_IMPORTED_MODULE_3_vuejs_paginator___default.a, PageHeader: __WEBPACK_IMPORTED_MODULE_4__helpers_page_header_vue___default.a },
+    components: { VPaginator: __WEBPACK_IMPORTED_MODULE_3_vuejs_paginator___default.a, PageHeader: __WEBPACK_IMPORTED_MODULE_5__helpers_page_header_vue___default.a },
     methods: {
         updateResource: function updateResource(data) {
             this.posts = data;
+        },
+        reload: function reload() {
+            // update Query-header with query-string
+            this.options.headers.Query = this.getQuery();
+            this.$refs.vpaginator.fetchData(this.resource_url);
+        },
+        getQuery: function getQuery() {
+            return this.$route.params.query ? this.$route.params.query : '';
         }
+    },
+    watch: {
+        // Bug fix. When we are on /search/query page and click on "/" route
+        // we need to manualy reload posts, because we are staying
+        // in the same component index.vue and changing route in this case
+        // doesn't triggers "created()" event.
+        '$route': function $route() {
+            this.reload();
+        }
+    },
+    created: function created() {
+        var _this = this;
+
+        __WEBPACK_IMPORTED_MODULE_4__helpers_event_bus_vue___default.a.$on('search', function () {
+            _this.reload();
+        });
+    },
+    destroyed: function destroyed() {
+        __WEBPACK_IMPORTED_MODULE_4__helpers_event_bus_vue___default.a.$off('search');
     }
 });
 
@@ -32946,7 +32992,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.logout($event)
       }
     }
-  }, [_vm._v("Выход")])]) : _vm._e()])])]), _vm._v(" "), _vm._m(1)])])]), _vm._v(" "), _c('flash-message'), _vm._v(" "), _c('div', {
+  }, [_vm._v("Выход")])]) : _vm._e()])])]), _vm._v(" "), _c('form', {
+    staticClass: "navbar-form navbar-right",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.search($event)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.query),
+      expression: "query"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "placeholder": "Поиск"
+    },
+    domProps: {
+      "value": (_vm.query)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.query = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _vm._m(1)])])])]), _vm._v(" "), _c('flash-message'), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-12"
@@ -32975,17 +33052,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon-bar"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('form', {
-    staticClass: "navbar-form navbar-right"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "placeholder": "Поиск"
-    }
-  })])])
+  return _c('button', {
+    staticClass: "btn btn-primary btn-sm"
+  }, [_c('span', {
+    staticClass: "fa fa-search"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -33154,7 +33225,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "post"
     }, [_c('router-link', {
       attrs: {
-        "to": '/' + post.slug
+        "to": '/post/' + post.slug
       }
     }, [_c('img', {
       staticClass: "media-object img-rounded",
@@ -33165,7 +33236,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "body"
     }, [_c('router-link', {
       attrs: {
-        "to": '/' + post.slug
+        "to": '/post/' + post.slug
       }
     }, [_c('h3', [_vm._v(_vm._s(post.title))])]), _vm._v("\n                " + _vm._s(post.description) + "\n                "), _c('div', {
       staticClass: "date"
@@ -33175,6 +33246,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "paginator"
   }, [_c('v-paginator', {
+    ref: "vpaginator",
     attrs: {
       "options": _vm.options,
       "resource_url": _vm.resource_url
@@ -47344,12 +47416,6 @@ __webpack_require__("./resources/assets/js/bootstrap.js");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//Vue.component('example', require('./components/Example.vue'));
-//
-//const app = new Vue({
-//    el: '#app'
-//});
-
 
 
 
@@ -47374,7 +47440,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     components: { App: __WEBPACK_IMPORTED_MODULE_2__App_vue___default.a },
     router: new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
         mode: 'history',
-        routes: [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_3__post_index_vue___default.a }, { path: '/contacts', component: __WEBPACK_IMPORTED_MODULE_5__contact_index_vue___default.a }, { path: '/comments', component: __WEBPACK_IMPORTED_MODULE_7__comment_index_vue___default.a }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_9__auth_register_vue___default.a }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_10__auth_login_vue___default.a }, { path: '/not-found', component: __WEBPACK_IMPORTED_MODULE_11__helpers_not_found_vue___default.a }, { path: '/:slug([a-z0-9\-]+)?', component: __WEBPACK_IMPORTED_MODULE_4__post_show_vue___default.a }, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__helpers_not_found_vue___default.a }]
+        routes: [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_3__post_index_vue___default.a }, { path: '/post/:slug([a-z0-9\-]+)', component: __WEBPACK_IMPORTED_MODULE_4__post_show_vue___default.a }, { path: '/search/:query(.+)', component: __WEBPACK_IMPORTED_MODULE_3__post_index_vue___default.a }, { path: '/contacts', component: __WEBPACK_IMPORTED_MODULE_5__contact_index_vue___default.a }, { path: '/comments', component: __WEBPACK_IMPORTED_MODULE_7__comment_index_vue___default.a }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_9__auth_register_vue___default.a }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_10__auth_login_vue___default.a }, { path: '/not-found', component: __WEBPACK_IMPORTED_MODULE_11__helpers_not_found_vue___default.a }, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__helpers_not_found_vue___default.a }]
     })
 });
 
