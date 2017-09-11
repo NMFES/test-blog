@@ -1750,8 +1750,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             this.$router.push({ path: '/search/' + encodeURIComponent(this.query) });
-
-            __WEBPACK_IMPORTED_MODULE_3__helpers_event_bus_vue___default.a.$emit('search');
         }
     },
     components: {
@@ -2500,23 +2498,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_
         }
     },
     watch: {
-        // Bug fix. When we are on /search/query page and click on "/" route
-        // we need to manualy reload posts, because we are staying
-        // in the same component index.vue and changing route in this case
-        // doesn't triggers "created()" event.
         '$route': function $route() {
             this.reload();
         }
-    },
-    created: function created() {
-        var _this = this;
-
-        __WEBPACK_IMPORTED_MODULE_4__helpers_event_bus_vue___default.a.$on('search', function () {
-            _this.reload();
-        });
-    },
-    destroyed: function destroyed() {
-        __WEBPACK_IMPORTED_MODULE_4__helpers_event_bus_vue___default.a.$off('search');
     }
 });
 

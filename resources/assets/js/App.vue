@@ -118,8 +118,6 @@
                 }
                 
                 this.$router.push({path: '/search/' + encodeURIComponent(this.query)});
-                
-                EventBus.$emit('search');
             }
         },
         components: {

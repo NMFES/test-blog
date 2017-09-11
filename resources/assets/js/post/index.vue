@@ -67,21 +67,9 @@
             }
         },
         watch: {
-            // Bug fix. When we are on /search/query page and click on "/" route
-            // we need to manualy reload posts, because we are staying
-            // in the same component index.vue and changing route in this case
-            // doesn't triggers "created()" event.
             '$route'() {
                 this.reload();
             }
-        },
-        created() {
-            EventBus.$on('search', () => {
-                this.reload();
-            });
-        },
-        destroyed() {
-            EventBus.$off('search');
         }
     }
 </script>
