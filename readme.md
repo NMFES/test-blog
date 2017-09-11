@@ -27,6 +27,8 @@ Also you should install Elasticsearch server, because the site searching uses it
 * `Post::createIndex()` (`Post::deleteIndex()` for deleting the index)
 * `Post::reindex()` reindexes all rows in posts table
 
+... and something else you need to do. If i forgot something :)
+
 ## Usage
 
 ``` bash
