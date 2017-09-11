@@ -1,6 +1,6 @@
 # Laravel 5.5 / Vue 2 (VueRouter) / Bootstrap 3.3.7 SPA
 
-This is an example of (Single-Page Application)[https://en.wikipedia.org/wiki/Single-page_application] site built on Laravel 5.5 and VueJS 2. Also it uses Elasticsearch for searching Post in database.
+This is an example of [Single-Page Application](https://en.wikipedia.org/wiki/Single-page_application) site built on Laravel 5.5 and VueJS 2. Also it uses Elasticsearch for searching Post in database. Webpack used via laravel-min plugin.
 It contains of those pages:
 * index page with all posts and search-field
 * author's contact page with form
