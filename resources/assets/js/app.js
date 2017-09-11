@@ -7,8 +7,7 @@
 
 require('./bootstrap');
 
-
-window.Vue = require('vue');
+//window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,8 +15,41 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+import App from './App.vue';
+
+// routes
+import PostIndex from './post/index.vue';
+import PostShow from './post/show.vue';
+import ContactIndex from './contact/index.vue';
+import ContactForm from './contact/form.vue';
+import CommentIndex from './comment/index.vue';
+import CommentForm from './comment/form.vue';
+import AuthRegister from './auth/register.vue';
+import AuthLogin from './auth/login.vue';
+import NotFound from './helpers/not-found.vue';
+
+Vue.use(VueRouter);
+
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    template: '<app></app>',
+    components: {App},
+    router: new VueRouter({
+        mode: 'history',
+        routes: [
+            {path: '/', component: PostIndex},
+            {path: '/post/:slug([a-z0-9\-]+)', component: PostShow},
+            {path: '/search/:query(.+)', component: PostIndex},
+            {path: '/contacts', component: ContactIndex},
+            {path: '/comments', component: CommentIndex},
+            {path: '/register', component: AuthRegister},
+            {path: '/login', component: AuthLogin},
+            {path: '/not-found', component: NotFound},
+            {path: '*', component: NotFound}
+        ]
+    })
 });
