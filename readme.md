@@ -1,6 +1,11 @@
-## About
+## Laravel 5.5 / Vue 2 / Bootstrap 3.3.7 SPA example site
 
 This is an example of SPA site built on Laravel 5.5 and VueJS 2. Also it uses Elasticsearch for searching Post in database.
+It contains of those pages:
+* index page with all posts and search-field
+* author's contact page with form
+* comments page with ability to add new comments and answering to selected commenter
+* login/register page
 
 ## Installation
 
