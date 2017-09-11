@@ -21,6 +21,12 @@ For installing you should run next commands:
 * `php artisan migrate`
 * `php artisan db:seed` if you want to seed database with random data
 
+Also you should install Elasticsearch server, because the site searching uses it. Then you need to create index and fill out it.
+`sudo service elasticsearch start` for running the server
+`php artisan tinker`
+`Post::createIndex()` (`Post::deleteIndex()` for deleting the index)
+`Post::reindex()`
+
 ## Usage
 
 ``` bash
