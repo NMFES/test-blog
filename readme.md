@@ -25,8 +25,8 @@ For installing you should run next commands:
 
 ``` bash
 # build and watch
-`npm run watch` (or `npm run watch-poll`)
+npm run watch (or "npm run watch-poll")
 
 # build for production
-`npm run prod`
+npm run prod
 ```
