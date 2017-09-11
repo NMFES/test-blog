@@ -1,6 +1,6 @@
 ## About
 
-This is a test application.
+This is an example of SPA site built on Laravel 5.5 and VueJS 2. Also it uses Elasticsearch for searching Post in database.
 
 ...
 ...
