@@ -16,7 +16,7 @@ For installing you should run next commands:
 * `cp .env.example .env`
 * `composer install`
 * `npm install`
-* `php artisan gey:generate`
+* `php artisan key:generate`
 * `php artisan storage:link`
 * Edit .env and set your database connection params. Also you need to change charset=utf8 and collation=utf8_general_ci in config/database.php
 * `php artisan migrate`
